@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import { CATEGORIES } from '../consts';
+---
+
+<Base title="Page not found">
+  <section class="wrap nf">
+    <span class="eyebrow">404</span>
+    <h1>We couldn’t find that page</h1>
+    <p>The page may have moved. Try one of the categories below, or head back home.</p>
+    <div class="links">
+      <a class="btn btn-primary" href="/">Back to home</a>
+      {CATEGORIES.map((c) => <a class="chip" href={`/category/${c.slug}`}>{c.short}</a>)}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    padding-block: 80px 100px;
+    text-align: center;
+  }
+  .nf h1 {
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 800;
+    margin-top: 10px;
+  }
+  .nf p {
+    color: var(--ink-2);
+    margin-top: 12px;
+  }
+  .links {
+    margin-top: 26px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+  .chip {
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 15px;
+    border-radius: 999px;
+    border: 1.5px solid var(--line-strong);
+    color: var(--ink-2);
+  }
+  .chip:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+    text-decoration: none;
+  }
+</style>

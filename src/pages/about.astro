@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE, CONTACT, waLink } from '../consts';
+---
+
+<Base title="About" description={`About the ${SITE.name} catalogue and how to request a quotation.`}>
+  <section class="head">
+    <div class="wrap">
+      <span class="eyebrow">About</span>
+      <h1>The OSSC range from {SITE.legalName}</h1>
+    </div>
+  </section>
+
+  <div class="wrap body">
+    <div class="prose">
+      <p>
+        {SITE.name} is the water-treatment components &amp; accessories catalogue of
+        <a href={SITE.parentSite} target="_blank" rel="noopener">{SITE.legalName}</a>. It brings together
+        the parts our teams rely on for building and maintaining water-treatment systems — from valves
+        and pipe fittings to filter media, treatment chemicals, PP filtration, UV disinfection and
+        control instruments.
+      </p>
+      <p>
+        This is a reference catalogue: browse the products, then request a current quotation. Pricing
+        depends on specification and quantity, so we quote each enquiry directly — the fastest way is a
+        quick message on WhatsApp.
+      </p>
+
+      <h2>Request a quotation</h2>
+      <ul class="contacts">
+        <li>
+          <span>WhatsApp</span>
+          <a href={waLink('Hello Tetra, I have a product enquiry from the OSSC catalogue.')} target="_blank" rel="noopener">Chat with us</a>
+        </li>
+        <li><span>Phone</span><a href={`tel:${CONTACT.phone}`}>{CONTACT.phone}</a></li>
+        <li><span>Email</span><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></li>
+      </ul>
+    </div>
+
+    <aside class="cta-card">
+      <h3>Fastest response</h3>
+      <p>Send your product list and quantities on WhatsApp for a same-day quotation.</p>
+      <a class="btn btn-whatsapp" href={waLink('Hello Tetra, I would like a quotation. My product list: ')} target="_blank" rel="noopener">Message on WhatsApp</a>
+    </aside>
+  </div>
+</Base>
+
+<style>
+  .head {
+    background: var(--brand-wash);
+    border-bottom: 1px solid var(--line);
+    padding-block: 40px 34px;
+  }
+  .head h1 {
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-top: 10px;
+    max-width: 20ch;
+  }
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 40px;
+    padding-block: 44px 20px;
+    align-items: start;
+  }
+  @media (max-width: 760px) {
+    .body {
+      grid-template-columns: 1fr;
+    }
+  }
+  .prose p {
+    color: var(--ink-2);
+    max-width: 66ch;
+    margin-bottom: 16px;
+    font-size: 16.5px;
+  }
+  .prose h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 28px 0 14px;
+  }
+  .contacts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .contacts li {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+  }
+  .contacts span {
+    width: 90px;
+    color: var(--ink-3);
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .cta-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: calc(var(--header-h) + 16px);
+  }
+  .cta-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .cta-card p {
+    color: var(--ink-2);
+    font-size: 14px;
+    margin: 10px 0 18px;
+  }
+  .cta-card .btn {
+    width: 100%;
+  }
+</style>

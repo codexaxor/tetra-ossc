@@ -1,0 +1,19 @@
+{
+  "name": "tetra-ossc-catalogue",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OSSC Product Catalogue & Quote site for Tetra Private Limited",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.6.1",
+    "@astrojs/sitemap": "^3.3.0",
+    "sharp": "^0.33.5"
+  }
+}

@@ -1,0 +1,97 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  product: CollectionEntry<'products'>;
+}
+const { product } = Astro.props;
+const { title, image, variants, shortDesc } = product.data;
+---
+
+<a class="card" href={`/products/${product.id}`}>
+  <div class="thumb">
+    <Image src={image} alt={title} width={480} height={480} widths={[240, 360, 480]} sizes="(max-width:600px) 45vw, 260px" />
+    {variants.length > 0 && <span class="badge">{variants.length} sizes</span>}
+  </div>
+  <div class="body">
+    <h3>{title}</h3>
+    {shortDesc && <p>{shortDesc}</p>}
+    <span class="cta">Request quote →</span>
+  </div>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+    height: 100%;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--brand-tint);
+    text-decoration: none;
+  }
+  .thumb {
+    position: relative;
+    aspect-ratio: 1;
+    background: #fff;
+    display: grid;
+    place-items: center;
+    padding: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .thumb :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: color-mix(in srgb, var(--accent) 15%, var(--surface));
+    color: var(--accent-dark);
+    font-family: var(--font-head);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 16px 16px;
+    flex: 1;
+  }
+  .body h3 {
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .body p {
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .cta {
+    margin-top: auto;
+    padding-top: 6px;
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--brand);
+  }
+</style>

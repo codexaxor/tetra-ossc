@@ -1,0 +1,42 @@
+---
+import { waLink } from '../consts';
+const href = waLink('Hello Tetra, I have a product enquiry from the OSSC catalogue.');
+---
+
+<a class="fab" href={href} target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.5 14.4c-.3-.15-1.7-.83-1.96-.93-.26-.09-.45-.14-.64.15-.19.28-.73.92-.9 1.11-.16.19-.33.21-.62.07a7.9 7.9 0 0 1-3.9-3.4c-.29-.5.3-.47.84-1.56.09-.18.05-.34-.02-.48-.08-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.5.07-.76.36-.26.28-1 .98-1 2.38s1.02 2.76 1.17 2.95c.14.19 2 3.05 4.85 4.28 1.8.78 2.5.85 3.4.71.55-.08 1.7-.69 1.94-1.36.24-.66.24-1.23.17-1.35-.07-.12-.26-.19-.55-.34Z"></path>
+    <path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="currentColor" stroke-width="1.6"></path>
+  </svg>
+</a>
+
+<style>
+  .fab {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 90;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--whatsapp);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .fab:hover {
+    background: var(--whatsapp-dark);
+    transform: scale(1.06);
+  }
+  .fab svg {
+    width: 30px;
+    height: 30px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fab {
+      transition: none;
+    }
+  }
+</style>

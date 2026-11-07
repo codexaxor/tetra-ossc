@@ -1,0 +1,191 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import QuoteButtons from '../../components/QuoteButtons.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { categoryBySlug } from '../../consts';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map((p) => ({ params: { slug: p.id }, props: { product: p } }));
+}
+
+const { product } = Astro.props;
+const { title, image, variants, brand, origin, note, shortDesc, category } = product.data;
+const cat = categoryBySlug(category);
+
+const related = (await getCollection('products'))
+  .filter((p) => p.data.category === category && p.id !== product.id)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+
+const specs: [string, string][] = [];
+if (variants.length) specs.push(['Available variants', variants.join(', ')]);
+if (brand) specs.push(['Brand', brand]);
+if (origin) specs.push(['Origin', origin]);
+if (note) specs.push(['Note', note]);
+if (cat) specs.push(['Category', cat.title]);
+---
+
+<Base title={title} description={shortDesc ?? `${title} — request a quotation from Tetra OSSC.`}>
+  <div class="wrap detail">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>/</span>
+      {cat && <><a href={`/category/${cat.slug}`}>{cat.short}</a> <span>/</span></>}
+      <span>{title}</span>
+    </nav>
+
+    <div class="layout">
+      <div class="media">
+        <Image src={image} alt={title} width={900} height={900} widths={[400, 700, 900]} sizes="(max-width:800px) 90vw, 460px" />
+      </div>
+
+      <div class="info">
+        {cat && <a class="kicker" href={`/category/${cat.slug}`}>{cat.title}</a>}
+        <h1>{title}</h1>
+        {shortDesc && <p class="lede">{shortDesc}</p>}
+
+        <div class="quotebox">
+          <QuoteButtons title={title} variants={variants} />
+        </div>
+
+        {
+          specs.length > 0 && (
+            <table class="specs">
+              <tbody>
+                {specs.map(([k, v]) => (
+                  <tr>
+                    <th>{k}</th>
+                    <td>{v}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )
+        }
+      </div>
+    </div>
+
+    {
+      related.length > 0 && (
+        <section class="related">
+          <div class="section-head">
+            <h2>More in {cat?.short}</h2>
+          </div>
+          <div class="grid">
+            {related.map((p) => <ProductCard product={p} />)}
+          </div>
+        </section>
+      )
+    }
+  </div>
+</Base>
+
+<style>
+  .detail {
+    padding-block: 28px 20px;
+  }
+  .crumbs {
+    font-size: 13px;
+    color: var(--ink-3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .crumbs a {
+    color: var(--ink-2);
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 460px) 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 800px) {
+    .layout {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+  }
+  .media {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: calc(var(--header-h) + 16px);
+  }
+  @media (max-width: 800px) {
+    .media {
+      position: static;
+    }
+  }
+  .media :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: contain;
+  }
+  .kicker {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--brand);
+    letter-spacing: 0.02em;
+  }
+  .info h1 {
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-top: 8px;
+  }
+  .lede {
+    margin-top: 12px;
+    color: var(--ink-2);
+    font-size: 17px;
+    max-width: 56ch;
+  }
+  .quotebox {
+    margin-top: 24px;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+  }
+  .specs {
+    margin-top: 24px;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+  }
+  .specs th,
+  .specs td {
+    text-align: left;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .specs th {
+    width: 40%;
+    color: var(--ink-3);
+    font-weight: 600;
+    font-family: var(--font-head);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+  .specs td {
+    color: var(--ink);
+  }
+  .related {
+    margin-top: 60px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 18px;
+  }
+</style>

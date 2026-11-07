@@ -1,0 +1,207 @@
+/* ==========================================================================
+   Tetra OSSC — design tokens (verified against tetrabd.com rendered pages)
+   Light theme only (white). Blue→indigo→purple · orange accent
+   Playfair Display + Poppins + Open Sans
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* brand */
+  --brand: #1f4e96;          /* royal blue — primary buttons, links */
+  --brand-dark: #183d78;     /* hover */
+  --brand-darker: #2f2a83;   /* deep indigo — gradient start, footer */
+  --indigo: #4a4dd6;         /* core brand identity */
+  --purple: #6a5cd8;         /* gradient end / highlights */
+  --brand-tint: #b9c2ef;     /* light indigo tint */
+  --brand-wash: #eef0fb;     /* very light indigo wash */
+  --grad: linear-gradient(160deg, #2f2a83 0%, #4a4dd6 55%, #6a5cd8 100%);
+  --grad-h: linear-gradient(90deg, #34468f 0%, #3b3a9a 50%, #2f2a83 100%);
+  --footer-grad: linear-gradient(150deg, #2c2b76 0%, #23225f 60%, #1a1a49 100%);
+  --accent: #fd8127;         /* orange accent — use sparingly */
+  --accent-dark: #e46a12;
+  --accent-blue: #255e97;    /* eyebrows / links */
+  --whatsapp: #25d366;
+  --whatsapp-dark: #1da851;
+
+  /* neutrals (slight indigo bias) */
+  --ground: #f5f6fb;
+  --surface: #ffffff;
+  --surface-2: #eef0f7;
+  --ink: #1a1a1a;
+  --ink-2: #474d5c;
+  --ink-3: #7b8496;
+  --line: #e1e4ee;
+  --line-strong: #c7ccdd;
+
+  --ok: #1f8a5b;
+
+  /* type */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-head: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* structure */
+  --wrap: 1140px;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow-sm: 0 1px 2px rgba(24, 27, 71, 0.06), 0 1px 3px rgba(24, 27, 71, 0.05);
+  --shadow: 0 2px 4px rgba(24, 27, 71, 0.06), 0 12px 28px rgba(24, 27, 71, 0.10);
+  --header-h: 66px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Display headings (page & hero titles) use the serif; card/UI headings use Poppins */
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.14;
+  margin: 0;
+  color: var(--ink);
+  text-wrap: balance;
+}
+h3,
+h4 {
+  font-family: var(--font-head);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--brand);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+:focus-visible {
+  outline: 2px solid var(--indigo);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.wrap {
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+.eyebrow {
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+}
+
+/* buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:hover {
+  text-decoration: none;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-primary {
+  background: var(--brand);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--brand-dark);
+}
+.btn-accent {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-accent:hover {
+  background: var(--accent-dark);
+}
+.btn-whatsapp {
+  background: var(--whatsapp);
+  color: #fff;
+}
+.btn-whatsapp:hover {
+  background: var(--whatsapp-dark);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--brand);
+  border-color: var(--line-strong);
+}
+.btn-outline:hover {
+  border-color: var(--brand);
+  background: var(--brand-wash);
+}
+.btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* section heading */
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+.section-head h2 {
+  font-size: clamp(24px, 3.6vw, 34px);
+  font-weight: 700;
+}
+.section-head p {
+  color: var(--ink-2);
+  max-width: 62ch;
+}
